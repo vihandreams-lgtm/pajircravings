@@ -13,9 +13,8 @@ import {
   ArrowLeft,
   Save,
   UtensilsCrossed,
-  ChefHat,
+  ChefHat
 } from 'lucide-react';
-
 import { motion } from 'framer-motion';
 import { auth, db } from '../firebase/config';
 import { 
@@ -90,7 +89,7 @@ export default function KitchenManager({ onBackToStorefront }: KitchenManagerPro
         img.src = event.target?.result as string;
         img.onload = () => {
           const canvas = document.createElement('canvas');
-          const MAX_WIDTH = 800; // Higher res
+          const MAX_WIDTH = 800; 
           const scaleSize = MAX_WIDTH / img.width;
           canvas.width = MAX_WIDTH;
           canvas.height = img.height * scaleSize;
@@ -422,28 +421,29 @@ export default function KitchenManager({ onBackToStorefront }: KitchenManagerPro
         </div>
       )}
 
+      {/* Header - Fixed for Mobile Layout */}
       <header className="bg-[#1E1719]/80 backdrop-blur-xl border-b border-white/10 sticky top-0 z-40 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#FF5A79] shadow-[0_0_15px_rgba(255,90,121,0.2)]">
-              <ShieldCheck className="w-6 h-6" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 min-h-[80px] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="flex items-center space-x-3 sm:space-x-4 w-full sm:w-auto">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-[#FF5A79] shadow-[0_0_15px_rgba(255,90,121,0.2)]">
+              <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
-            <div>
-              <h1 className="font-serif text-2xl font-bold text-white tracking-tight">Pajir Kitchen Manager</h1>
-              <p className="text-[10px] text-gray-400 font-medium uppercase tracking-widest mt-1">Logged in as {user.email}</p>
+            <div className="min-w-0">
+              <h1 className="font-serif text-xl sm:text-2xl font-bold text-white tracking-tight truncate">Pajir Kitchen Manager</h1>
+              <p className="text-[10px] text-gray-400 font-medium uppercase tracking-widest mt-1 truncate">Logged in as {user.email}</p>
             </div>
           </div>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center justify-end space-x-3 w-full sm:w-auto">
             <button 
               onClick={onBackToStorefront}
-              className="px-6 py-2.5 bg-white/5 hover:bg-white/10 text-white rounded-full text-xs font-bold transition-all cursor-pointer border border-white/10"
+              className="px-4 sm:px-6 py-2.5 bg-white/5 hover:bg-white/10 text-white rounded-full text-xs font-bold transition-all cursor-pointer border border-white/10 flex-1 sm:flex-none text-center"
             >
               View Storefront
             </button>
             <button 
               onClick={() => signOut(auth)}
-              className="p-3 bg-red-500/10 text-red-400 rounded-full hover:bg-red-500/20 transition-all cursor-pointer border border-red-500/20"
+              className="p-2.5 sm:p-3 bg-red-500/10 text-red-400 rounded-full hover:bg-red-500/20 transition-all cursor-pointer border border-red-500/20 shrink-0"
             >
               <LogOut className="w-5 h-5" />
             </button>
@@ -455,19 +455,19 @@ export default function KitchenManager({ onBackToStorefront }: KitchenManagerPro
         
         {/* KPI CARDS */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-          <div className="bg-white/5 backdrop-blur-2xl text-white p-8 rounded-[2rem] shadow-xl flex flex-col justify-between relative overflow-hidden border border-white/20">
+          <div className="bg-white/5 backdrop-blur-2xl text-white p-6 sm:p-8 rounded-[2rem] shadow-xl flex flex-col justify-between relative overflow-hidden border border-white/20">
             <span className="text-[10px] font-bold uppercase tracking-widest text-[#FF5A79] block mb-2 relative z-10">TOTAL ITEMS</span>
             <div className="font-serif text-5xl font-bold mb-1 relative z-10">{items.length}</div>
             <span className="text-xs text-gray-400 font-medium relative z-10">{items.filter(i => i.available).length} ready to serve</span>
           </div>
 
-          <div className="bg-white/5 backdrop-blur-2xl text-white p-8 rounded-[2rem] shadow-xl flex flex-col justify-between relative overflow-hidden border border-white/20">
+          <div className="bg-white/5 backdrop-blur-2xl text-white p-6 sm:p-8 rounded-[2rem] shadow-xl flex flex-col justify-between relative overflow-hidden border border-white/20">
             <span className="text-[10px] font-bold uppercase tracking-widest text-[#FF5A79] block mb-2 relative z-10">ACTIVE CATEGORIES</span>
             <div className="font-serif text-5xl font-bold mb-1 relative z-10">{categories.length}</div>
             <span className="text-xs text-gray-400 font-medium relative z-10">Shown as homepage tabs</span>
           </div>
 
-          <div className="bg-white/5 backdrop-blur-2xl text-white p-8 rounded-[2rem] shadow-xl flex flex-col justify-between relative overflow-hidden border border-white/20">
+          <div className="bg-white/5 backdrop-blur-2xl text-white p-6 sm:p-8 rounded-[2rem] shadow-xl flex flex-col justify-between relative overflow-hidden border border-white/20">
             <span className="text-[10px] font-bold uppercase tracking-widest text-[#FF5A79] block mb-2 relative z-10">RECENT REVIEWS</span>
             <div className="font-serif text-5xl font-bold mb-1 relative z-10">{reviews.length}</div>
             <span className="text-xs text-gray-400 font-medium relative z-10">From the WhatsApp wall</span>
@@ -488,7 +488,7 @@ export default function KitchenManager({ onBackToStorefront }: KitchenManagerPro
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as any)}
-                className={`flex items-center space-x-2 px-6 py-3 rounded-full text-xs font-bold transition-all whitespace-nowrap cursor-pointer active:scale-95 border ${
+                className={`flex items-center space-x-2 px-5 sm:px-6 py-3 rounded-full text-xs font-bold transition-all whitespace-nowrap cursor-pointer active:scale-95 border ${
                   isActive ? 'bg-[#FF5A79] text-white border-transparent shadow-[0_0_15px_rgba(255,90,121,0.4)]' : 'bg-white/5 text-gray-400 border-white/10 hover:bg-white/10 hover:text-white'
                 }`}
               >
@@ -512,7 +512,7 @@ export default function KitchenManager({ onBackToStorefront }: KitchenManagerPro
                   <button
                     key={cat.id}
                     onClick={() => setSelectedCategorySlug(cat.slug)}
-                    className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all cursor-pointer active:scale-95 flex items-center space-x-2 border shadow-sm ${
+                    className={`px-4 sm:px-5 py-2.5 rounded-full text-xs font-bold transition-all cursor-pointer active:scale-95 flex items-center space-x-2 border shadow-sm ${
                       isSelected 
                         ? 'bg-[#FF5A79] text-white border-transparent shadow-[0_0_15px_rgba(255,90,121,0.4)]' 
                         : 'bg-white/5 text-gray-400 border-white/10 hover:bg-white/10 hover:text-white'
@@ -528,10 +528,10 @@ export default function KitchenManager({ onBackToStorefront }: KitchenManagerPro
             </div>
 
             {/* ADD NEW TREAT FORM */}
-            <div className="bg-white/5 backdrop-blur-2xl rounded-[2rem] p-6 sm:p-8 border border-[#FF5A79]/30 shadow-[0_20px_50px_rgba(255,90,121,0.1)] relative overflow-hidden">
+            <div className="bg-white/5 backdrop-blur-2xl rounded-[2rem] p-5 sm:p-8 border border-[#FF5A79]/30 shadow-[0_20px_50px_rgba(255,90,121,0.1)] relative overflow-hidden">
               <div className="absolute top-0 left-0 w-1.5 h-full bg-[#FF5A79]"></div>
-              <h3 className="font-serif text-xl font-bold text-white mb-6 flex items-center space-x-2">
-                <Plus className="w-5 h-5 text-[#FF5A79]" />
+              <h3 className="font-serif text-lg sm:text-xl font-bold text-white mb-6 flex items-center space-x-2">
+                <Plus className="w-5 h-5 text-[#FF5A79] shrink-0" />
                 <span>Add a new treat to {activeCategoryObj?.label || 'Selected Category'}</span>
               </h3>
 
@@ -608,9 +608,9 @@ export default function KitchenManager({ onBackToStorefront }: KitchenManagerPro
             {/* EXISTING TREATS LIST */}
             <div className="pt-6">
               <div className="flex items-center space-x-3 mb-6">
-                <UtensilsCrossed className="w-5 h-5 text-[#FF5A79]" />
-                <h3 className="font-serif text-xl font-bold text-white">Currently Serving ({currentCategoryItems.length})</h3>
-                <div className="flex-1 h-px bg-white/10 ml-4"></div>
+                <UtensilsCrossed className="w-5 h-5 text-[#FF5A79] shrink-0" />
+                <h3 className="font-serif text-lg sm:text-xl font-bold text-white truncate">Currently Serving ({currentCategoryItems.length})</h3>
+                <div className="flex-1 h-px bg-white/10 ml-2 sm:ml-4"></div>
               </div>
 
               <div className="space-y-5">
@@ -620,7 +620,7 @@ export default function KitchenManager({ onBackToStorefront }: KitchenManagerPro
                   </div>
                 ) : (
                   currentCategoryItems.map((item) => (
-                    <div key={item.id} className="bg-white/5 backdrop-blur-2xl rounded-[2rem] p-6 border border-white/20 shadow-[0_20px_40px_rgba(0,0,0,0.4)] grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                    <div key={item.id} className="bg-white/5 backdrop-blur-2xl rounded-[2rem] p-5 sm:p-6 border border-white/20 shadow-[0_20px_40px_rgba(0,0,0,0.4)] grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
                       
                       {/* Photo Box */}
                       <div className="lg:col-span-3 flex flex-col items-center justify-center p-5 bg-black/20 rounded-3xl border border-white/5 relative shadow-inner">
@@ -653,9 +653,9 @@ export default function KitchenManager({ onBackToStorefront }: KitchenManagerPro
                       </div>
 
                       {/* Editable Fields */}
-                      <div className="lg:col-span-9 space-y-5">
-                        <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
-                          <div className="md:col-span-1">
+                      <div className="lg:col-span-9 space-y-5 w-full">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5">
+                          <div className="sm:col-span-2 md:col-span-1">
                             <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Treat Name</label>
                             <input 
                               type="text" 
@@ -685,7 +685,7 @@ export default function KitchenManager({ onBackToStorefront }: KitchenManagerPro
                             />
                           </div>
 
-                          <div className="flex flex-col space-y-2 pt-6">
+                          <div className="flex flex-col space-y-2 pt-2 sm:pt-6">
                             <label className="flex items-center space-x-2 cursor-pointer">
                               <input 
                                 type="checkbox" 
@@ -717,22 +717,22 @@ export default function KitchenManager({ onBackToStorefront }: KitchenManagerPro
                           />
                         </div>
 
-                        <div className="flex items-center justify-between pt-4 border-t border-white/10">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pt-4 border-t border-white/10 gap-4">
                           <span className="text-xs text-gray-400 font-medium">
                             Customer pays {Number(item.price).toLocaleString()} UGX
                           </span>
 
-                          <div className="flex items-center space-x-3">
+                          <div className="flex items-center space-x-3 w-full sm:w-auto">
                             <button 
                               onClick={() => showToastMsg("Changes saved!")}
-                              className="px-6 py-2.5 bg-white/10 hover:bg-white/20 text-white font-bold text-xs rounded-full transition-all cursor-pointer flex items-center space-x-1 border border-white/10"
+                              className="flex-1 sm:flex-none px-6 py-2.5 bg-white/10 hover:bg-white/20 text-white font-bold text-xs rounded-full transition-all cursor-pointer flex items-center justify-center space-x-1 border border-white/10"
                             >
                               <Save className="w-4 h-4" />
                               <span>Save</span>
                             </button>
                             <button 
                               onClick={() => handleDeleteTreat(item.id)}
-                              className="px-5 py-2.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 font-bold text-xs rounded-full transition-all cursor-pointer flex items-center space-x-1 border border-red-500/20"
+                              className="flex-1 sm:flex-none px-5 py-2.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 font-bold text-xs rounded-full transition-all cursor-pointer flex items-center justify-center space-x-1 border border-red-500/20"
                             >
                               <Trash2 className="w-4 h-4" />
                               <span>Delete</span>
@@ -752,11 +752,11 @@ export default function KitchenManager({ onBackToStorefront }: KitchenManagerPro
         {/* ================= 2. CATEGORIES PANEL ================= */}
         {activeTab === 'categories' && (
           <div className="space-y-6 max-w-4xl">
-            <div className="bg-white/5 backdrop-blur-2xl rounded-[2rem] p-6 sm:p-8 border border-white/20 shadow-xl">
-              <h3 className="font-serif text-xl font-bold text-white mb-2">Menu categories</h3>
+            <div className="bg-white/5 backdrop-blur-2xl rounded-[2rem] p-5 sm:p-8 border border-white/20 shadow-xl">
+              <h3 className="font-serif text-lg sm:text-xl font-bold text-white mb-2">Menu categories</h3>
               <p className="text-sm text-gray-400 mb-6">These are the tabs customers see on the homepage, in this order.</p>
 
-              <form onSubmit={handleAddCategory} className="bg-black/30 p-6 rounded-3xl border border-white/10 mb-8 grid grid-cols-1 sm:grid-cols-12 gap-4 items-end shadow-inner">
+              <form onSubmit={handleAddCategory} className="bg-black/30 p-5 sm:p-6 rounded-3xl border border-white/10 mb-8 grid grid-cols-1 sm:grid-cols-12 gap-4 items-end shadow-inner">
                 <div className="sm:col-span-5">
                   <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Category Name</label>
                   <input 
@@ -793,30 +793,30 @@ export default function KitchenManager({ onBackToStorefront }: KitchenManagerPro
                 {categories.map((cat: any) => {
                   const treatCount = items.filter(i => i.category === cat.slug).length;
                   return (
-                    <div key={cat.id} className="bg-white/5 p-5 rounded-2xl border border-white/10 flex items-center justify-between shadow-lg">
-                      <div className="flex-1 mr-4">
+                    <div key={cat.id} className="bg-white/5 p-4 sm:p-5 rounded-2xl border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between shadow-lg gap-4">
+                      <div className="flex-1 w-full">
                         <input 
                           type="text" 
                           defaultValue={cat.label}
                           onBlur={(e) => handleUpdateCategory(cat.id, e.target.value)}
-                          className="w-full p-3 bg-black/30 rounded-xl border border-white/10 text-sm font-bold text-white focus:outline-none focus:border-[#FF5A79]/50 shadow-inner"
+                          className="w-full p-3 bg-black/30 rounded-xl border border-white/10 text-sm font-bold text-white focus:outline-none focus:border-[#FF5A79]/50 shadow-inner mb-2 sm:mb-0"
                         />
-                        <span className="text-[10px] text-gray-500 font-mono mt-2 block">slug: {cat.slug}</span>
+                        <span className="text-[10px] text-gray-500 font-mono block">slug: {cat.slug}</span>
                       </div>
 
-                      <div className="flex items-center space-x-3">
-                        <span className="bg-black/20 text-gray-300 text-[10px] font-bold px-3 py-1.5 rounded-full whitespace-nowrap border border-white/10">
+                      <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
+                        <span className="bg-black/20 text-gray-300 text-[10px] font-bold px-3 py-1.5 rounded-full whitespace-nowrap border border-white/10 w-full sm:w-auto text-center mb-1 sm:mb-0">
                           {cat.slug} · {treatCount} treats
                         </span>
                         <button 
                           onClick={() => showToastMsg("Category saved!")}
-                          className="px-5 py-2.5 bg-white/10 hover:bg-white/20 text-white text-xs font-bold rounded-xl transition-all cursor-pointer border border-white/10"
+                          className="flex-1 sm:flex-none px-5 py-2.5 bg-white/10 hover:bg-white/20 text-white text-xs font-bold rounded-xl transition-all cursor-pointer border border-white/10 text-center"
                         >
                           Save
                         </button>
                         <button 
                           onClick={() => handleDeleteCategory(cat)}
-                          className="p-3 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-xl transition-all cursor-pointer border border-red-500/20"
+                          className="p-2.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-xl transition-all cursor-pointer border border-red-500/20"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -832,11 +832,11 @@ export default function KitchenManager({ onBackToStorefront }: KitchenManagerPro
         {/* ================= 3. REVIEWS PANEL ================= */}
         {activeTab === 'reviews' && (
           <div className="space-y-6 max-w-4xl">
-            <div className="bg-white/5 backdrop-blur-2xl rounded-[2rem] p-6 sm:p-8 border border-white/20 shadow-xl">
-              <h3 className="font-serif text-xl font-bold text-white mb-2">Straight from our WhatsApp</h3>
+            <div className="bg-white/5 backdrop-blur-2xl rounded-[2rem] p-5 sm:p-8 border border-white/20 shadow-xl">
+              <h3 className="font-serif text-lg sm:text-xl font-bold text-white mb-2">Straight from our WhatsApp</h3>
               <p className="text-sm text-gray-400 mb-6">Reviews rotate on the homepage. The checkmark shows the blue tick badge.</p>
 
-              <form onSubmit={handleAddReview} className="bg-black/30 p-6 rounded-3xl border border-white/10 mb-8 space-y-5 shadow-inner">
+              <form onSubmit={handleAddReview} className="bg-black/30 p-5 sm:p-6 rounded-3xl border border-white/10 mb-8 space-y-5 shadow-inner">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
                     <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Customer Name</label>
@@ -872,7 +872,7 @@ export default function KitchenManager({ onBackToStorefront }: KitchenManagerPro
                   />
                 </div>
 
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                   <div className="flex items-center space-x-2">
                     <input 
                       type="checkbox"
@@ -884,7 +884,7 @@ export default function KitchenManager({ onBackToStorefront }: KitchenManagerPro
                     <label htmlFor="revCheck" className="text-sm font-bold text-white">Show checkmark badge</label>
                   </div>
 
-                  <button type="submit" className="bg-[#FF5A79] hover:bg-[#E04B66] text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-md transition-all cursor-pointer active:scale-95 flex items-center space-x-2">
+                  <button type="submit" className="w-full sm:w-auto bg-[#FF5A79] hover:bg-[#E04B66] text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-md transition-all cursor-pointer active:scale-95 flex items-center justify-center space-x-2">
                     <Plus className="w-4 h-4" />
                     <span>Add review</span>
                   </button>
@@ -893,7 +893,7 @@ export default function KitchenManager({ onBackToStorefront }: KitchenManagerPro
 
               <div className="space-y-4">
                 {reviews.map((rev: any) => (
-                  <div key={rev.id} className="bg-white/5 p-5 rounded-2xl border border-white/10 shadow-lg space-y-4">
+                  <div key={rev.id} className="bg-white/5 p-4 sm:p-5 rounded-2xl border border-white/10 shadow-lg space-y-4">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <div>
                         <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Customer Name</label>
@@ -924,7 +924,7 @@ export default function KitchenManager({ onBackToStorefront }: KitchenManagerPro
                       />
                     </div>
 
-                    <div className="flex items-center justify-between pt-4 border-t border-white/10">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pt-4 border-t border-white/10 gap-4">
                       <div className="flex items-center space-x-2">
                         <input 
                           type="checkbox" 
@@ -935,16 +935,16 @@ export default function KitchenManager({ onBackToStorefront }: KitchenManagerPro
                         <span className="text-sm font-bold text-white">Checkmark</span>
                       </div>
 
-                      <div className="flex items-center space-x-3">
+                      <div className="flex items-center space-x-3 w-full sm:w-auto">
                         <button 
                           onClick={() => showToastMsg("Review saved!")}
-                          className="px-6 py-2.5 bg-white/10 hover:bg-white/20 text-white text-xs font-bold rounded-xl transition-all cursor-pointer border border-white/10"
+                          className="flex-1 sm:flex-none px-6 py-2.5 bg-white/10 hover:bg-white/20 text-white text-xs font-bold rounded-xl transition-all cursor-pointer border border-white/10"
                         >
                           Save
                         </button>
                         <button 
                           onClick={() => handleDeleteReview(rev.id)}
-                          className="px-5 py-2.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs font-bold rounded-xl transition-all cursor-pointer border border-red-500/20"
+                          className="flex-1 sm:flex-none px-5 py-2.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs font-bold rounded-xl transition-all cursor-pointer border border-red-500/20"
                         >
                           Delete
                         </button>
@@ -961,17 +961,17 @@ export default function KitchenManager({ onBackToStorefront }: KitchenManagerPro
         {/* ================= 4. HOMEPAGE PANEL ================= */}
         {activeTab === 'homepage' && (
           <div className="space-y-6 max-w-4xl">
-            <div className="bg-white/5 backdrop-blur-2xl rounded-[2rem] p-6 sm:p-8 border border-white/20 shadow-xl space-y-8">
+            <div className="bg-white/5 backdrop-blur-2xl rounded-[2rem] p-5 sm:p-8 border border-white/20 shadow-xl space-y-8">
               <div>
-                <h3 className="font-serif text-xl font-bold text-white mb-2">Hero photo</h3>
+                <h3 className="font-serif text-lg sm:text-xl font-bold text-white mb-2">Hero photo</h3>
                 <p className="text-sm text-gray-400 mb-6">The picture beside the big headline at the very top.</p>
                 
-                <div className="p-8 bg-black/20 rounded-3xl border border-dashed border-white/20 flex flex-col items-center justify-center shadow-inner">
+                <div className="p-6 sm:p-8 bg-black/20 rounded-3xl border border-dashed border-white/20 flex flex-col items-center justify-center shadow-inner">
                   {siteAssets.heroUrl && (
                     <img src={siteAssets.heroUrl} alt="Current Hero" className="w-full max-w-sm h-40 object-cover rounded-2xl mb-4 shadow-lg border border-white/10" />
                   )}
-                  <div className="flex items-center space-x-4">
-                    <label className="bg-[#FF5A79] hover:bg-[#E04B66] text-white text-sm font-bold px-8 py-3 rounded-full cursor-pointer transition-all active:scale-95 shadow-md">
+                  <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+                    <label className="w-full sm:w-auto bg-[#FF5A79] hover:bg-[#E04B66] text-white text-sm font-bold px-8 py-3 rounded-full cursor-pointer transition-all active:scale-95 shadow-md text-center">
                       {siteAssets.heroUrl ? 'Change photo' : 'Choose photo'}
                       <input 
                         type="file" 
@@ -989,7 +989,7 @@ export default function KitchenManager({ onBackToStorefront }: KitchenManagerPro
                     {siteAssets.heroUrl && (
                       <button 
                         onClick={() => handleSaveAsset('hero', '')}
-                        className="bg-white/10 hover:bg-red-500/20 text-white hover:text-red-400 text-sm font-bold px-6 py-3 rounded-full transition-all active:scale-95 border border-white/10"
+                        className="w-full sm:w-auto bg-white/10 hover:bg-red-500/20 text-white hover:text-red-400 text-sm font-bold px-6 py-3 rounded-full transition-all active:scale-95 border border-white/10"
                       >
                         Remove
                       </button>

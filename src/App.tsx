@@ -569,18 +569,23 @@ export default function App() {
           
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
             <div>
-              <h2 className="font-serif text-4xl sm:text-5xl font-bold text-white mb-3">Good Food, Good Vibes</h2>
-              <p className="text-gray-400 text-sm max-w-xl leading-relaxed">
-                Explore our daily selection of freshly baked pastries, 100% natural cold-pressed juices, and hearty continental meals prepared with precision.
+              {/* REPLACED TEXT */}
+              <h2 className="font-serif text-4xl sm:text-5xl font-bold text-white mb-3">Find Your Craving</h2>
+              <p className="text-gray-400 text-sm max-w-xl leading-relaxed flex flex-col space-y-1">
+                <span>Search for your favorite treats, juices, or meals below.</span>
+                <span className="flex items-center gap-1 text-[#FF5A79] font-medium mt-1">
+                  <MessageCircle className="w-3.5 h-3.5" /> Orders are placed directly via WhatsApp.
+                </span>
               </p>
             </div>
             
             <div className="relative group w-full md:w-80">
-              <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#FF5A79] transition-colors" />
+              {/* Larger search icon */}
+              <Search className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#FF5A79] transition-colors" />
               <input 
                 type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search cravings..."
-                className="w-full pl-10 pr-10 py-3.5 bg-white/5 backdrop-blur-xl rounded-full border border-white/10 focus:outline-none focus:bg-white/10 focus:ring-1 focus:ring-[#FF5A79]/50 text-white shadow-sm placeholder:text-gray-500 text-sm font-medium transition-all"
+                className="w-full pl-12 pr-10 py-3.5 bg-white/5 backdrop-blur-xl rounded-full border border-white/10 focus:outline-none focus:bg-white/10 focus:ring-1 focus:ring-[#FF5A79]/50 text-white shadow-sm placeholder:text-gray-500 text-sm font-medium transition-all"
               />
               {searchQuery && (
                 <button onClick={() => setSearchQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-full p-1 transition-colors">
@@ -609,7 +614,7 @@ export default function App() {
             </div>
           </div>
 
-          {/* Menu Grid */}
+          {/* Menu Grid - Using grid-flow-row-dense to prevent empty spaces */}
           {isMenuLoading && menuItems.length === 0 ? (
              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                {[1, 2, 3].map((n) => (
@@ -627,17 +632,17 @@ export default function App() {
               <button onClick={() => { setActiveCategory('all'); setSearchQuery(''); }} className="bg-[#FF5A79] text-white text-sm font-bold px-8 py-3 rounded-full hover:bg-[#E04B66] transition-all shadow-md">Show All</button>
             </motion.div>
           ) : (
-            <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[minmax(320px,auto)]">
+            <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[minmax(380px,auto)] grid-flow-row-dense">
               <AnimatePresence>
                 {filteredItems.map((item) => {
                   const effectivePrice = item.discountPercent ? item.price * (1 - item.discountPercent / 100) : item.price;
                   
-                  // Only items explicitly marked in the Kitchen Manager become the Chef's Special
                   if (item.isChefsSpecial) {
                     return (
                       <motion.div 
                         layout key={item.id} initial={{ opacity: 0, scale: 0.95, filter: "blur(4px)" }} animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }} exit={{ opacity: 0, scale: 0.95, filter: "blur(4px)" }} transition={{ duration: 0.4 }}
-                        className="md:col-span-2 lg:col-span-2 relative rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] group flex flex-col justify-end min-h-[320px] border border-white/20"
+                        // Kept the original size: 2 columns on desktop
+                        className="md:col-span-2 lg:col-span-2 relative rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] group flex flex-col justify-end min-h-[380px] border border-white/20"
                       >
                         <img src={item.imageUrl} alt={item.name} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#1A1113] via-[#1A1113]/60 to-transparent opacity-90" />
@@ -828,11 +833,18 @@ export default function App() {
             <h4 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">Contact Us</h4>
             <div className="flex items-center space-x-3 hover:text-[#FF5A79] transition-colors cursor-pointer"><MapPin className="w-4 h-4 text-[#FF5A79]" /><span>Kira, Uganda</span></div>
             <div className="flex items-center space-x-3 hover:text-[#FF5A79] transition-colors cursor-pointer"><Phone className="w-4 h-4 text-[#FF5A79]" /><span>+256 774 501 297</span></div>
-            <div className="flex items-center space-x-3 hover:text-[#FF5A79] transition-colors cursor-pointer"><Music className="w-4 h-4 text-[#FF5A79]" /><span>TikTok: @pajirkitchenandoven</span></div>
-            <div className="flex items-center space-x-3 hover:text-[#FF5A79] transition-colors cursor-pointer">
+            
+            {/* TikTok Link */}
+            <a href="https://www.tiktok.com/@pajirkitchenandoven" target="_blank" rel="noreferrer" className="flex items-center space-x-3 hover:text-[#FF5A79] transition-colors cursor-pointer">
+              <Music className="w-4 h-4 text-[#FF5A79]" />
+              <span>TikTok: @pajirkitchenandoven</span>
+            </a>
+            
+            {/* Instagram Link */}
+            <a href="https://www.instagram.com/pajirkitchenandoven/" target="_blank" rel="noreferrer" className="flex items-center space-x-3 hover:text-[#FF5A79] transition-colors cursor-pointer">
               <svg className="w-4 h-4 fill-current text-[#FF5A79]" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
               <span>Instagram: @pajirkitchenandoven</span>
-            </div>
+            </a>
           </div>
 
           <div>
